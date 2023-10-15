@@ -22,11 +22,15 @@ var parser = regexp.MustCompile(`Party\:\s*(.+)`)
 var window fyne.Window
 
 func loadSprite(id int) (*canvas.Image, error) {
-	data, err := sprites.Open(fmt.Sprintf("pokemon/main-sprites/crystal/%d.png", id))
+	sprite := fmt.Sprintf("pokemon/main-sprites/crystal/%d.png", id)
+	if id == 201 {
+		sprite = "pokemon/main-sprites/crystal/201-a.png"
+	}
+	data, err := sprites.Open(sprite)
 	if err != nil {
 		return nil, err
 	}
-	return canvas.NewImageFromReader(data, fmt.Sprintf("pokemon/main-sprites/crystal/%d.png", id)), nil
+	return canvas.NewImageFromReader(data, sprite), nil
 }
 
 func refresh(party []int) error {
